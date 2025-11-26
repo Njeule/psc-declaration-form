@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PSC Declaration of Income, Assets and Liabilities</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f7f7fb;
+    }
+    h1, h2, h3 {
+      margin-top: 1.5rem;
+    }
+    fieldset {
+      border: 1px solid #ccc;
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      background: #fff;
+    }
+    legend {
+      font-weight: 600;
+      padding: 0 0.5rem;
+    }
+    label {
+      display: block;
+      margin-top: 0.75rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+      margin-top: 0.2rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 0.95rem;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    small {
+      display: block;
+      font-size: 0.8rem;
+      color: #555;
+      margin-top: 0.1rem;
+    }
+    .row-group {
+      border: 1px dashed #ddd;
+      padding: 0.75rem;
+      margin: 0.75rem 0;
+      border-radius: 4px;
+      background: #fafafa;
+      position: relative;
+    }
+    .row-group button.remove-row {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      font-size: 0.75rem;
+    }
+    .add-btn {
+      margin-top: 0.5rem;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      border: 1px solid #007bff;
+      background: #eaf3ff;
+      cursor: pointer;
+    }
+    .add-btn:hover {
+      background: #d7e8ff;
+    }
+    button[type="submit"] {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: none;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    button[type="submit"]:hover {
+      background: #0062cc;
+    }
+    .status {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    .status.success { color: #0b7a2a; }
+    .status.error { color: #b20000; }
+    .hint {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 0.3rem;
+    }
+    .warning-text {
+      font-size: 0.8rem;
+      color: #b06400;
+      margin-top: 0.2rem;
+    }
+    .inline-btn {
+      margin-top: 0.4rem;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      border: 1px solid #777;
+      background: #f0f0f0;
+      cursor: pointer;
+    }
+    .inline-btn:hover {
+      background: #e0e0e0;
+    }
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      margin-top: 0.5rem;
+    }
+    .checkbox-row input[type="checkbox"] {
+      margin-right: 0.5rem;
+      margin-top: 0.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>PSC Declaration of Income, Assets and Liabilities</h1>
+  <p>
+    Please complete this declaration form as required by the Public Service Commission (PSC).
+    Fields marked as required must be filled. Follow the notes carefully to avoid rejection.
+  </p>
+
+  <form id="psc-form">
+    <!-- Declarant identity (who this declaration is for) -->
+    <fieldset>
+      <legend>0. Declarant</legend>
+      <label>Declaration for
+        <select name="declarant_type" required>
+          <option value="">-- Select --</option>
+          <option value="Officer">Officer</option>
+          <option value="Spouse">Spouse</option>
+          <option value="Dependent child (<18)">Dependent child (&lt;18)</option>
+        </select>
+        <small>Use this same online form for the officer, each spouse, and each dependent child under 18.</small>
+      </label>
+      <label>Declarant full name (Surname, First Name, Other Names)
+        <input type="text" name="declarant_full_name" required>
+        <small>No initials or abbreviations. Must match official documents (ID/Birth Certificate).</small>
+      </label>
+      <button type="button" class="inline-btn" id="copy-name-btn">
+        Copy from Officer name fields below
+      </button>
+    </fieldset>
+
+    <!-- Officer details -->
+    <fieldset>
+      <legend>1. Officer Details</legend>
+      <label>Surname
+        <input type="text" name="officer_surname" required>
+        <small>No initials or abbreviations.</small>
+      </label>
+      <label>First Name
+        <input type="text" name="officer_first_name" required>
+        <small>No initials or abbreviations.</small>
+      </label>
+      <label>Other Names
+        <input type="text" name="officer_other_names">
+        <small>No initials or abbreviations.</small>
+      </label>
+      <label>Date of Birth
+        <input type="date" name="dob" required>
+        <small>Enter full date as on your ID (e.g. 1980-12-31).</small>
+      </label>
+      <label>Place of Birth
+        <input type="text" name="place_of_birth" required>
+        <small>As indicated on your National ID.</small>
+      </label>
+      <label>Marital Status
+        <select name="marital_status" required>
+          <option value="">-- Select --</option>
+          <option value="Single">Single</option>
+          <option value="Married">Married</option>
+        </select>
+        <small>As per PSC: use only <strong>Single</strong> or <strong>Married</strong>. Widowed/divorced = Single.</small>
+      </label>
+      <label>Postal Address
+        <input type="text" name="postal_address" required>
+      </label>
+      <label>Physical Address
+        <input type="text" name="physical_address" required>
+      </label>
+    </fieldset>
+
+    <!-- Employment details -->
+    <fieldset>
+      <legend>2. Employment Details</legend>
+      <label>Employment Number
+        <input type="text" name="employment_number" required>
+      </label>
+      <label>Designation
+        <input type="text" name="designation" required>
+        <small>No abbreviations.</small>
+      </label>
+      <label>Employer Name
+        <input type="text" name="employer_name" required>
+      </label>
+      <label>Nature of Employment
+        <select name="employment_nature" required>
+          <option value="">-- Select --</option>
+          <option value="Permanent">Permanent</option>
+          <option value="Temporary">Temporary</option>
+          <option value="Contract">Contract</option>
+          <option value="Other">Other (specify below)</option>
+        </select>
+      </label>
+      <label id="employment_nature_other_label" style="display:none;">
+        If Other, specify nature of employment (no abbreviations)
+        <input type="text" name="employment_nature_other">
+      </label>
+    </fieldset>
+
+    <!-- Statement period (fixed) -->
+    <fieldset>
+      <legend>3. Statement Period (Fixed by PSC)</legend>
+      <p class="hint">
+        For the 2023–2025 cycle, PSC guidelines set the statement period as:
+      </p>
+      <ul class="hint">
+        <li><strong>Statement Date:</strong> 1 November 2025</li>
+        <li><strong>Income Period:</strong> 1 November 2023 – 31 October 2025</li>
+      </ul>
+      <!-- Hidden fields sent to n8n -->
+      <input type="hidden" name="statement_date" value="2025-11-01">
+      <input type="hidden" name="period_from" value="2023-11-01">
+      <input type="hidden" name="period_to" value="2025-10-31">
+    </fieldset>
+
+    <!-- Spouses -->
+    <fieldset>
+      <legend>4. Spouses</legend>
+      <p class="hint">
+        If you are married, you must list your spouse(s) here and submit a separate declaration
+        for each spouse using this same online form.
+      </p>
+      <div id="spouses-container"></div>
+      <button type="button" class="add-btn" id="add-spouse-btn">+ Add Spouse</button>
+      <div id="spouse-warning" class="warning-text"></div>
+    </fieldset>
+
+    <!-- Dependent children -->
+    <fieldset>
+      <legend>5. Dependent Children (&lt; 18 years)</legend>
+      <p class="hint">
+        List only children under 18 years as at 1 November 2025. Children 18 or older,
+        whether dependent or not, should not be listed here.
+      </p>
+      <div id="children-container"></div>
+      <button type="button" class="add-btn" id="add-child-btn">+ Add Child</button>
+      <div id="children-warning" class="warning-text"></div>
+    </fieldset>
+
+    <!-- Income -->
+    <fieldset>
+      <legend>6. Income Details</legend>
+      <p class="hint">
+        Declare income (including emoluments) for the period 1 Nov 2023 – 31 Oct 2025:
+        salary, allowances, rental income, business income, etc.
+      </p>
+      <div id="income-container"></div>
+      <button type="button" class="add-btn" id="add-income-btn">+ Add Income</button>
+    </fieldset>
+
+    <!-- Assets -->
+    <fieldset>
+      <legend>7. Asset Details</legend>
+      <p class="hint">
+        Declare assets owned as at 1 Nov 2025: land, buildings, vehicles, investments,
+        bank balances, etc. For land, include location and LR number where applicable.
+      </p>
+      <div id="assets-container"></div>
+      <button type="button" class="add-btn" id="add-asset-btn">+ Add Asset</button>
+    </fieldset>
+
+    <!-- Liabilities -->
+    <fieldset>
+      <legend>8. Liability Details</legend>
+      <p class="hint">
+        Declare liabilities outstanding as at 1 Nov 2025: loans, mortgages, sacco loans,
+        school fees arrears, etc.
+      </p>
+      <div id="liabilities-container"></div>
+      <button type="button" class="add-btn" id="add-liability-btn">+ Add Liability</button>
+    </fieldset>
+
+    <!-- Other info and declaration -->
+    <fieldset>
+      <legend>9. Other Information & Declaration</legend>
+      <label>Other Information
+        <textarea name="other_information"></textarea>
+      </label>
+
+      <h3>Witness Details</h3>
+      <p class="hint">
+        The witness must be a willing adult of sound mind (not under 18). They do not
+        have to be your supervisor but should see you sign.
+      </p>
+      <label>Witness Name
+        <input type="text" name="witness_name" required>
+      </label>
+      <label>Witness Address
+        <textarea name="witness_address" required></textarea>
+      </label>
+      <label>Witness Signature (typed name)
+        <input type="text" name="witness_signature" required>
+      </label>
+      <div class="checkbox-row">
+        <input type="checkbox" name="witness_eligibility_confirm" required>
+        <span class="hint">
+          I confirm that my witness is over 18 years and of sound mind, as required by the PSC guidelines.
+        </span>
+      </div>
+
+      <h3>Officer Declaration</h3>
+      <label>Officer Signature (typed name)
+        <input type="text" name="officer_signature" required>
+      </label>
+      <label>Officer Signature Date
+        <input type="date" name="officer_signature_date" required>
+      </label>
+
+      <h3>Before You Submit (PSC Checklist)</h3>
+      <div class="checkbox-row">
+        <input type="checkbox" name="guideline_check_names_full" required>
+        <span class="hint">I have written all names in full (no initials or abbreviations).</span>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" name="guideline_check_children_under_18" required>
+        <span class="hint">I have listed only children under 18 years in the Dependent Children section.</span>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" name="guideline_check_separate_declarations" required>
+        <span class="hint">I understand that separate declarations are required for my spouse(s) and each dependent child under 18.</span>
+      </div>
+      <div class="checkbox-row">
+        <input type="checkbox" name="guideline_check_truthful" required>
+        <span class="hint">I confirm that the information provided is true and complete to the best of my knowledge.</span>
+      </div>
+    </fieldset>
+
+    <button type="submit">Submit Declaration</button>
+    <div class="status" id="status"></div>
+  </form>
+
+  <script>
+    // --- Dynamic row helpers ---
+    function createSpouseRow() {
+      const div = document.createElement('div');
+      div.className = 'row-group';
+      div.innerHTML = `
+        <button type="button" class="remove-row">Remove</button>
+        <label>Surname
+          <input type="text" name="spouse_surname">
+          <small>No abbreviations.</small>
+        </label>
+        <label>First Name
+          <input type="text" name="spouse_first_name">
+          <small>No abbreviations.</small>
+        </label>
+        <label>Other Names
+          <input type="text" name="spouse_other_names">
+          <small>No abbreviations.</small>
+        </label>
+        <label>Relationship (e.g. Wife, Husband)
+          <input type="text" name="spouse_relationship">
+        </label>
+      `;
+      return div;
+    }
+
+    function createChildRow() {
+      const div = document.createElement('div');
+      div.className = 'row-group';
+      div.innerHTML = `
+        <button type="button" class="remove-row">Remove</button>
+        <label>Surname
+          <input type="text" name="child_surname">
+          <small>No abbreviations.</small>
+        </label>
+        <label>First Name
+          <input type="text" name="child_first_name">
+          <small>No abbreviations.</small>
+        </label>
+        <label>Other Names
+          <input type="text" name="child_other_names">
+          <small>No abbreviations.</small>
+        </label>
+        <label>Age (must be under 18)
+          <input type="number" name="child_age" min="0">
+        </label>
+      `;
+      return div;
+    }
+
+    function createIncomeRow() {
+      const div = document.createElement('div');
+      div.className = 'row-group';
+      div.innerHTML = `
+        <button type="button" class="remove-row">Remove</button>
+        <label>Description
+          <input type="text" name="income_description">
+        </label>
+        <label>Amount (approximate)
+          <input type="number" name="income_amount" min="0" step="0.01">
+        </label>
+      `;
+      return div;
+    }
+
+    function createAssetRow() {
+      const div = document.createElement('div');
+      div.className = 'row-group';
+      div.innerHTML = `
+        <button type="button" class="remove-row">Remove</button>
+        <label>Description
+          <input type="text" name="asset_description">
+        </label>
+        <label>Value (approximate)
+          <input type="number" name="asset_amount" min="0" step="0.01">
+        </label>
+      `;
+      return div;
+    }
+
+    function createLiabilityRow() {
+      const div = document.createElement('div');
+      div.className = 'row-group';
+      div.innerHTML = `
+        <button type="button" class="remove-row">Remove</button>
+        <label>Description
+          <input type="text" name="liability_description">
+        </label>
+        <label>Amount (approximate)
+          <input type="number" name="liability_amount" min="0" step="0.01">
+        </label>
+      `;
+      return div;
+    }
+
+    // Containers
+    const spousesContainer = document.getElementById('spouses-container');
+    const childrenContainer = document.getElementById('children-container');
+    const incomeContainer = document.getElementById('income-container');
+    const assetsContainer = document.getElementById('assets-container');
+    const liabilitiesContainer = document.getElementById('liabilities-container');
+    const spouseWarning = document.getElementById('spouse-warning');
+    const childrenWarning = document.getElementById('children-warning');
+    const statusEl = document.getElementById('status');
+
+    // Add-row buttons
+    document.getElementById('add-spouse-btn').addEventListener('click', () => {
+      spousesContainer.appendChild(createSpouseRow());
+    });
+    document.getElementById('add-child-btn').addEventListener('click', () => {
+      childrenContainer.appendChild(createChildRow());
+    });
+    document.getElementById('add-income-btn').addEventListener('click', () => {
+      incomeContainer.appendChild(createIncomeRow());
+    });
+    document.getElementById('add-asset-btn').addEventListener('click', () => {
+      assetsContainer.appendChild(createAssetRow());
+    });
+    document.getElementById('add-liability-btn').addEventListener('click', () => {
+      liabilitiesContainer.appendChild(createLiabilityRow());
+    });
+
+    // Remove-row delegation
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('remove-row')) {
+        e.target.parentElement.remove();
+      }
+    });
+
+    // Initial rows
+    spousesContainer.appendChild(createSpouseRow());
+    incomeContainer.appendChild(createIncomeRow());
+    assetsContainer.appendChild(createAssetRow());
+    liabilitiesContainer.appendChild(createLiabilityRow());
+
+    // Employment nature "Other"
+    const employmentNatureSelect = document.querySelector('select[name="employment_nature"]');
+    const employmentOtherLabel = document.getElementById('employment_nature_other_label');
+    employmentNatureSelect.addEventListener('change', () => {
+      if (employmentNatureSelect.value === 'Other') {
+        employmentOtherLabel.style.display = 'block';
+      } else {
+        employmentOtherLabel.style.display = 'none';
+      }
+    });
+
+    // Copy declarant name from officer fields
+    document.getElementById('copy-name-btn').addEventListener('click', () => {
+      const s = document.querySelector('input[name="officer_surname"]').value.trim();
+      const f = document.querySelector('input[name="officer_first_name"]').value.trim();
+      const o = document.querySelector('input[name="officer_other_names"]').value.trim();
+      const declarantInput = document.querySelector('input[name="declarant_full_name"]');
+      declarantInput.value = [s, f, o].filter(Boolean).join(' ');
+    });
+
+    // Form submission
+    const form = document.getElementById('psc-form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.textContent = 'Submitting...';
+      statusEl.className = 'status';
+
+      const formData = new FormData(form);
+
+      // Warn if married but no spouse rows with data
+      const maritalStatus = formData.get('marital_status');
+      let spouseCount = 0;
+      spousesContainer.querySelectorAll('.row-group').forEach(row => {
+        const surname = row.querySelector('input[name="spouse_surname"]').value.trim();
+        const firstName = row.querySelector('input[name="spouse_first_name"]').value.trim();
+        const otherNames = row.querySelector('input[name="spouse_other_names"]').value.trim();
+        const relationship = row.querySelector('input[name="spouse_relationship"]').value.trim();
+        if (surname || firstName || otherNames || relationship) spouseCount++;
+      });
+      if (maritalStatus === 'Married' && spouseCount === 0) {
+        spouseWarning.textContent = 'You indicated that you are married. PSC requires that you list your spouse(s) and submit separate declarations for them.';
+      } else {
+        spouseWarning.textContent = '';
+      }
+
+      // Warn for any child with age >= 18
+      let has18Plus = false;
+      childrenContainer.querySelectorAll('.row-group').forEach(row => {
+        const ageVal = row.querySelector('input[name="child_age"]').value.trim();
+        const age = ageVal ? parseInt(ageVal, 10) : NaN;
+        if (!isNaN(age) && age >= 18) has18Plus = true;
+      });
+      if (has18Plus) {
+        childrenWarning.textContent = 'You have entered a child aged 18 or above. PSC requires that only children under 18 years are listed here.';
+      } else {
+        childrenWarning.textContent = '';
+      }
+
+      // Build payload
+      const payload = {
+        declarant_type: formData.get('declarant_type'),
+        declarant_full_name: formData.get('declarant_full_name'),
+        officer_surname: formData.get('officer_surname'),
+        officer_first_name: formData.get('officer_first_name'),
+        officer_other_names: formData.get('officer_other_names'),
+        dob: formData.get('dob'),
+        place_of_birth: formData.get('place_of_birth'),
+        marital_status: formData.get('marital_status'),
+        postal_address: formData.get('postal_address'),
+        physical_address: formData.get('physical_address'),
+        employment_number: formData.get('employment_number'),
+        designation: formData.get('designation'),
+        employer_name: formData.get('employer_name'),
+        employment_nature: formData.get('employment_nature'),
+        employment_nature_other: formData.get('employment_nature_other'),
+        statement_date: formData.get('statement_date'),
+        period_from: formData.get('period_from'),
+        period_to: formData.get('period_to'),
+        other_information: formData.get('other_information'),
+        officer_signature: formData.get('officer_signature'),
+        officer_signature_date: formData.get('officer_signature_date'),
+        witness_name: formData.get('witness_name'),
+        witness_address: formData.get('witness_address'),
+        witness_signature: formData.get('witness_signature'),
+        witness_eligibility_confirm: formData.get('witness_eligibility_confirm') === 'on',
+        guideline_check_names_full: formData.get('guideline_check_names_full') === 'on',
+        guideline_check_children_under_18: formData.get('guideline_check_children_under_18') === 'on',
+        guideline_check_separate_declarations: formData.get('guideline_check_separate_declarations') === 'on',
+        guideline_check_truthful: formData.get('guideline_check_truthful') === 'on',
+        spouses: [],
+        children: [],
+        income_items: [],
+        asset_items: [],
+        liability_items: []
+      };
+
+      // Collect spouses
+      spousesContainer.querySelectorAll('.row-group').forEach(row => {
+        const surname = row.querySelector('input[name="spouse_surname"]').value.trim();
+        const firstName = row.querySelector('input[name="spouse_first_name"]').value.trim();
+        const otherNames = row.querySelector('input[name="spouse_other_names"]').value.trim();
+        const relationship = row.querySelector('input[name="spouse_relationship"]').value.trim();
+        if (surname || firstName || otherNames || relationship) {
+          payload.spouses.push({ surname, first_name: firstName, other_names: otherNames, relationship });
+        }
+      });
+
+      // Collect children
+      childrenContainer.querySelectorAll('.row-group').forEach(row => {
+        const surname = row.querySelector('input[name="child_surname"]').value.trim();
+        const firstName = row.querySelector('input[name="child_first_name"]').value.trim();
+        const otherNames = row.querySelector('input[name="child_other_names"]').value.trim();
+        const age = row.querySelector('input[name="child_age"]').value.trim();
+        if (surname || firstName || otherNames || age) {
+          payload.children.push({ surname, first_name: firstName, other_names: otherNames, age });
+        }
+      });
+
+      // Collect income items
+      incomeContainer.querySelectorAll('.row-group').forEach(row => {
+        const description = row.querySelector('input[name="income_description"]').value.trim();
+        const amount = row.querySelector('input[name="income_amount"]').value.trim();
+        if (description || amount) {
+          payload.income_items.push({ description, amount });
+        }
+      });
+
+      // Collect assets
+      assetsContainer.querySelectorAll('.row-group').forEach(row => {
+        const description = row.querySelector('input[name="asset_description"]').value.trim();
+        const amount = row.querySelector('input[name="asset_amount"]').value.trim();
+        if (description || amount) {
+          payload.asset_items.push({ description, amount });
+        }
+      });
+
+      // Collect liabilities
+      liabilitiesContainer.querySelectorAll('.row-group').forEach(row => {
+        const description = row.querySelector('input[name="liability_description"]').value.trim();
+        const amount = row.querySelector('input[name="liability_amount"]').value.trim();
+        if (description || amount) {
+          payload.liability_items.push({ description, amount });
+        }
+      });
+
+      try {
+        const res = await fetch('https://micahnjeule.app.n8n.cloud/webhook-test/psc-declaration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+          throw new Error(`Server responded with ${res.status}`);
+        }
+
+        statusEl.textContent = 'Declaration submitted successfully.';
+        statusEl.className = 'status success';
+
+        // Reset dynamic sections after successful submit
+        form.reset();
+        spousesContainer.innerHTML = '';
+        childrenContainer.innerHTML = '';
+        incomeContainer.innerHTML = '';
+        assetsContainer.innerHTML = '';
+        liabilitiesContainer.innerHTML = '';
+        spousesContainer.appendChild(createSpouseRow());
+        incomeContainer.appendChild(createIncomeRow());
+        assetsContainer.appendChild(createAssetRow());
+        liabilitiesContainer.appendChild(createLiabilityRow());
+        spouseWarning.textContent = '';
+        childrenWarning.textContent = '';
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Error submitting declaration. Please try again or contact HR.';
+        statusEl.className = 'status error';
+      }
+    });
+  </script>
+</body>
+</html>
